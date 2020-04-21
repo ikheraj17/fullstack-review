@@ -11,11 +11,9 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.post('/repos', function (req, res) {
-  // TODO - your code here!
+
   console.log('this route works', req.body);
-  // This route should take the github username provided
-  // and get the repo information from the github API, then
-  // save the repo information in the database
+
   githubHelper.getReposByUsername(req.body.username, (results) => {
 
       var repos = JSON.parse(results.body);
@@ -48,6 +46,29 @@ app.get('/repos', function (req, res) {
   // TODO - your code here!
   console.log("request route working");
   // This route should send back the top 25 repos
+  var results = [];
+  db.top25((err, data) => {
+    // console.log('this is the error: ', err);
+    // console.log('this is the data: ', data);
+    data.forEach(repo => {
+      results.push(repo);
+    })
+
+
+
+
+    // res.send(results);
+  });
+
+  db.countEm((err, data) => {
+    console.log("this is the count: ", data);
+    results.unshift(data);
+    console.log('results arr: ', results);
+    res.send(results);
+  });
+
+  // res.send(results);
+
 });
 
 let port = 1128;

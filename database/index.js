@@ -30,13 +30,14 @@ let countEm = (callback) => {
         callback(err, null);
       })
 }
-
+//get the top 25 repos
 let top25 = (callback) => {
-  Repo.find().sort(['Forks', 'desc']).limit(25)
+  Repo.find().sort([['Forks', 'desc']]).limit(25)
     .then(data => {
       callback(null, data);
     })
     .catch(err => {
+      console.log('database query error')
       callback(err, null)
     })
 }
