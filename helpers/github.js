@@ -19,7 +19,7 @@ let getReposByUsername = (username, callback) => {
 request(options, (err, res) => {
  if(err) {
    callback(err);
-   console.log(err);
+   console.log('there was an eror with your helper function' ,err);
  } else {
    callback(res);
  }
