@@ -29,6 +29,8 @@ const RepoList = ({repos}) => (
     <div>{repos[23]}</div>
     <div>{repos[24]}</div>
     <div>{repos[25]}</div>
+    <div>{repos[26]}</div>
+    <div>{repos[27]}</div>
     <div>There are {repos.length} repos.</div>
   </div>
 )

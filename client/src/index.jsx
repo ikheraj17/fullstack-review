@@ -17,13 +17,17 @@ class App extends React.Component {
     var results = [];
     $.get('/repos')
       .then(repos => {
-        var count = repos.shift();
-        console.log(count);
         console.log(repos);
+        if(repos.length < 1) {
+          throw repos;
+        }
         repos.forEach(repo => {
           var repoArr = "Owner: " + repo.Owner + " || " + "Repo Name: " + repo.Repo + " || " + repo.Url + '\n';
-          results.push(repoArr);
-        })
+          if(results.indexOf(repoArr) < 0) {
+            results.push(repoArr);
+
+        }
+      })
 
         console.log(results);
 
@@ -34,7 +38,7 @@ class App extends React.Component {
       .catch( err => {
         console.log(err);
       })
-  }
+    };
 
   search (term) {
     console.log(`${term} was searched`);
@@ -53,6 +57,7 @@ class App extends React.Component {
         console.log("no data posted");
       }
     })
+
   }
 
   render () {

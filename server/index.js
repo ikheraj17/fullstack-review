@@ -35,7 +35,7 @@ app.post('/repos', function (req, res) {
         if(err) {
           console.log('mongoose error')
         } else {
-          console.log('mongoose works!', docs);
+          console.log('mongoose works!');
         }
       });
   })
@@ -51,21 +51,26 @@ app.get('/repos', function (req, res) {
     // console.log('this is the error: ', err);
     // console.log('this is the data: ', data);
     data.forEach(repo => {
-      results.push(repo);
+      if(results.indexOf(repo) < 0) {
+        results.push(repo);
+      }
+
     })
 
+    console.log('these are the results you desire', results);
 
 
 
-    // res.send(results);
-  });
 
-  db.countEm((err, data) => {
-    console.log("this is the count: ", data);
-    results.unshift(data);
-    console.log('results arr: ', results);
     res.send(results);
   });
+
+  // db.countEm((err, data) => {
+  //   console.log("this is the count: ", data);
+  //   results.unshift(data);
+  //   console.log('results arr: ', results);
+  //   res.send(results);
+  // });
 
   // res.send(results);
 

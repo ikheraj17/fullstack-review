@@ -3,8 +3,14 @@ mongoose.connect('mongodb://localhost/fetcher');
 
 let repoSchema = mongoose.Schema({
   Owner: String,
-  Repo: String,
-  Url: String,
+  Repo: {
+    type: String,
+    unique: true
+  },
+  Url: {
+    type: String,
+    unique: true
+  },
   Forks: Number
 });
 
@@ -21,15 +27,15 @@ let save = (repos, callback) => {
     });
 }
 //count every repo in database
-let countEm = (callback) => {
-  Repo.count()
-      .then(count => {
-        callback(null, count);
-      })
-      .catch(err => {
-        callback(err, null);
-      })
-}
+// let countEm = (callback) => {
+//   Repo.count()
+//       .then(count => {
+//         callback(null, count);
+//       })
+//       .catch(err => {
+//         callback(err, null);
+//       })
+// }
 //get the top 25 repos
 let top25 = (callback) => {
   Repo.find().sort([['Forks', 'desc']]).limit(25)
@@ -43,4 +49,4 @@ let top25 = (callback) => {
 }
 module.exports.top25 = top25;
 module.exports.save = save;
-module.exports.countEm = countEm;
+// module.exports.countEm = countEm;
