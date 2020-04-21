@@ -16,7 +16,14 @@ let getReposByUsername = (username, callback) => {
   };
 
   //make request API call
-request(options, )
+request(options, (err, res) => {
+ if(err) {
+   callback(err);
+   console.log(err);
+ } else {
+   callback(res);
+ }
+})
 
 }
 

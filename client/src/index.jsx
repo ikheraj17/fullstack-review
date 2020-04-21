@@ -28,8 +28,6 @@ class App extends React.Component {
     $.post('/repos', {username : term}, (data) => {
       if(!data) {
         console.log("there is no data yet");
-      } else {
-        console.log("this is the data: ", data);
       }
     })
   }
