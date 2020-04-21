@@ -13,6 +13,16 @@ class App extends React.Component {
 
   }
 
+  componentDidMount () {
+    $.get('/repos')
+      .then(repos => {
+        console.log(repos);
+      })
+      .catch( err => {
+        console.log(err);
+      })
+  }
+
   search (term) {
     console.log(`${term} was searched`);
     //put AJAX post request below

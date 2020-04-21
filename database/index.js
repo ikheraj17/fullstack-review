@@ -8,12 +8,38 @@ let repoSchema = mongoose.Schema({
   Forks: Number
 });
 
-let Repo = mongoose.model('Repo', repoSchema);
+let Repo = mongoose.model('Repo', repoSchema, 'repos');
 
-let save = (/* TODO */) => {
-  // TODO: Your code here
-  // This function should save a repo or repos to
-  // the MongoDB
+
+let save = (repos, callback) => {
+  Repo.insertMany(repos)
+    .then((docs) =>{
+      callback(null, docs);
+    })
+    .catch((err) => {
+      callback(err, null);
+    });
+}
+//count every repo in database
+let countEm = (callback) => {
+  Repo.count()
+      .then(count => {
+        callback(null, count);
+      })
+      .catch(err => {
+        callback(err, null);
+      })
 }
 
+let top25 = (callback) => {
+  Repo.find().sort(['Forks', 'desc']).limit(25)
+    .then(data => {
+      callback(null, data);
+    })
+    .catch(err => {
+      callback(err, null)
+    })
+}
+module.exports.top25 = top25;
 module.exports.save = save;
+module.exports.countEm = countEm;
