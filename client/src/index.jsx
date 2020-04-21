@@ -21,11 +21,12 @@ class App extends React.Component {
         console.log(count);
         console.log(repos);
         repos.forEach(repo => {
-          var repoArr = [repo.Owner, repo.Repo, repo.Url];
+          var repoArr = "Owner: " + repo.Owner + " || " + "Repo Name: " + repo.Repo + " || " + repo.Url + '\n';
           results.push(repoArr);
         })
 
         console.log(results);
+
         this.setState({
           repos : results
         })
