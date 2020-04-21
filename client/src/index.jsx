@@ -8,15 +8,27 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      repos: []
+      repos: [],
     }
 
   }
 
   componentDidMount () {
+    var results = [];
     $.get('/repos')
       .then(repos => {
+        var count = repos.shift();
+        console.log(count);
         console.log(repos);
+        repos.forEach(repo => {
+          var repoArr = [repo.Owner, repo.Repo, repo.Url];
+          results.push(repoArr);
+        })
+
+        console.log(results);
+        this.setState({
+          repos : results
+        })
       })
       .catch( err => {
         console.log(err);
@@ -37,7 +49,7 @@ class App extends React.Component {
     // })
     $.post('/repos', {username : term}, (data) => {
       if(!data) {
-        console.log("there is no data yet");
+        console.log("no data posted");
       }
     })
   }
